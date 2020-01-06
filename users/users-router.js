@@ -10,18 +10,6 @@ router.get("/users", restricted, (req, res) => {
     })
     .catch(err => res.send(err));
 });
-
-function checkDept(department) {
-    return function(req, res, next) {
-      if (req.token && department === req.token.department) {
-        next();
-      } else {
-        res
-          .status(403)
-          .json({ message: `You have no power here, you must be a team member of the ${department} department` });
-      }
-    };
-  }
   
 
 module.exports = router;

@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
     const { authorization } = req.headers;
-    console.log(req)
+    console.log(req.headers)
 
     if (authorization) {
         const secret = process.env.JWT_SECRET || "The secret sauce, that seems, secret";
