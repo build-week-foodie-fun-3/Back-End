@@ -27,7 +27,13 @@ function getReviews(id) {
   }
 
 function update(changes, id) {
-    return db("restaurants")
+    return db("reviews")
       .where({ id })
       .update(changes, "*");
 }
+
+function remove(id) {
+    return db("reviews")
+      .where({ id })
+      .del();
+  }
