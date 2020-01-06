@@ -46,7 +46,7 @@ exports.up = function(knex) {
         tbl.string('typeofcusine', 128)
         tbl.string('menuitem', 128)
         tbl.string('photourl');
-        tbl.integer('price')
+        tbl.string('price')
         tbl.integer('itemrating')
         tbl.string('itemreview', 500)
     })
