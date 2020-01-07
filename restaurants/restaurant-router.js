@@ -26,6 +26,16 @@ router.post("/restaurant", restricted, (req, res) => {
       });
   })
 
+  router.get('/restaurant', (req, res) => {
+    Restaurant.getAllResturants()
+      .then(recs => {
+        res.status(200).json(recs)
+      })
+      .catch(err => {
+        res.status(500).json({ message: 'Failed to get resturants' });
+      });
+  })
+
 
   router.put('/restaurant/:id', (req, res) => {
     const { id } = req.params;

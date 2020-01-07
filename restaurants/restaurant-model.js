@@ -5,7 +5,8 @@ module.exports = {
   findById,
   getResturants,
   update,
-  remove
+  remove,
+  getAllResturants
 };
 
 function update(changes, id) {
@@ -13,11 +14,11 @@ function update(changes, id) {
       .where({ id })
       .update(changes, "*");
   }
-/*
-function getResturants() {
+
+function getAllResturants() {
     return db('restaurants')
   }
-*/
+
   function getResturants(id) {
     return db('restaurants as b')
     .join("users as a", "a.id", "b.user_id")
