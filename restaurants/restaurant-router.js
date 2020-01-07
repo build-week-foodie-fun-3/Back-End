@@ -15,8 +15,9 @@ router.post("/restaurant", restricted, (req, res) => {
       });
   });
 
-  router.get('/restaurant', (req, res) => {
-    Restaurant.getResturants()
+  router.get('/restaurant/:id', (req, res) => {
+    const { id } = req.params;
+    Restaurant.getResturants(id)
       .then(recs => {
         res.status(200).json(recs)
       })

@@ -13,10 +13,17 @@ function update(changes, id) {
       .where({ id })
       .update(changes, "*");
   }
-
+/*
 function getResturants() {
     return db('restaurants')
   }
+*/
+  function getResturants(id) {
+    return db('restaurants as b')
+    .join("users as a", "a.id", "b.user_id")
+    .select( 'b.id', 'b.name', 'b.typeofcusine', 'b.location', 'b.hours', 'b.rating', 'b.photourl')
+    .where("user_id", id);
+  }  
 
 function findById(id) {
     return db('restaurants')

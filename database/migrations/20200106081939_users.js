@@ -24,12 +24,20 @@ exports.up = function(knex) {
 
     .createTable('restaurants', tbl => {
         tbl.increments();
-        tbl.string('name', 128).notNullable().unique();
+        tbl.string('name', 128).notNullable();
         tbl.string('typeofcusine', 128)
         tbl.string('location', 128)
         tbl.string('hours', 128)
         tbl.string('rating', 128);
         tbl.string('photourl');
+        tbl
+        .integer('user_id')
+        .notNullable()
+        .unsigned()
+        .references('id')
+        .inTable('users')
+        .onDelete('RESTRICT') 
+        .onUpdate('CASCADE'); 
     })
 
     .createTable('reviews', tbl => {
