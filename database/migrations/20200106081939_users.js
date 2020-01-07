@@ -15,7 +15,6 @@ exports.up = function(knex) {
       users
         .string('location', 128)
         .notNullable()
-        .unique();
 
         users
         .string('email', 128)
