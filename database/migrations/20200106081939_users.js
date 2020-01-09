@@ -25,7 +25,7 @@ exports.up = function(knex) {
     .createTable('restaurants', tbl => {
         tbl.increments();
         tbl.string('name', 128).notNullable();
-        tbl.string('typeofcusine', 128)
+        tbl.string('typeofcuisine', 128)
         tbl.string('location', 128)
         tbl.string('hours', 128)
         tbl.string('rating', 128);
@@ -50,7 +50,7 @@ exports.up = function(knex) {
         .inTable('restaurants')
         .onDelete('RESTRICT') 
         .onUpdate('CASCADE'); 
-        tbl.string('typeofcusine', 128)
+        tbl.string('typeofcuisine', 128)
         tbl.string('menuitem', 128)
         tbl.string('photourl');
         tbl.string('price')

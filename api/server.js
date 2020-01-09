@@ -19,7 +19,7 @@ server.use('/api/auth', resturantRouter);
 server.use('/api/auth', reviewRouter);
 
 server.get('/', (req, res) => {
-  res.send("It's alive!");
+  res.send("Welcome to the FoodieFun API");
 });
 
 module.exports = server;

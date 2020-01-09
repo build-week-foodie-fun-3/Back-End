@@ -22,7 +22,7 @@ function getAllResturants() {
   function getResturants(id) {
     return db('restaurants as b')
     .join("users as a", "a.id", "b.user_id")
-    .select( 'b.id', 'b.name', 'b.typeofcusine', 'b.location', 'b.hours', 'b.rating', 'b.photourl')
+    .select( 'b.id', 'b.name', 'b.typeofcuisine', 'b.location', 'b.hours', 'b.rating', 'b.photourl')
     .where("user_id", id);
   }  
 
