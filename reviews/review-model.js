@@ -22,7 +22,7 @@ function findById(id) {
 function getReviews(id) {
     return db('reviews as b')
     .join("restaurants as a", "a.id", "b.restaurant_id")
-    .select('a.name', 'b.id', 'b.menuitem', 'b.typeofcusine', 'b.photourl', 'b.price', 'b.itemrating', 'b.itemreview')
+    .select('a.name', 'b.id', 'b.menuitem', 'b.typeofcuisine', 'b.photourl', 'b.price', 'b.itemrating', 'b.itemreview')
     .where("restaurant_id", id);
   }
 
