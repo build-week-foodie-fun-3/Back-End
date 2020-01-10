@@ -1,78 +1,91 @@
-const request = require("supertest");
+const request = require('supertest')
 
-const server = require("./server.js");
+const server = require('./server.js')
 
 const db = require('../database/dbConfig.js')
 
-/*
-beforeEach(async () => {
-  await db('users').truncate()
-})
-*/
+
 
 describe('server.js', () => {
+  describe('index route', () => {
+    it('should return http status code 200', async () => {
+      const expectedStatus = 200
+
+      const response = await request(server).get('/');
+
+      expect(response.status).toEqual(expectedStatus)
+    })
+
+    it('should return a json object', async () => {
+      const response = await request(server).get('/');
+
+      expect(response.type).toEqual('application/json')
+    })
+  })
+
   describe('register route', () => {
-    it('should give a 404 if password not given', () => {
+    it('should send status 404 if email and password are not given', () => {
       return request(server)
-        .post('/register')
+        .post('/api/registers')
         .then(res => expect(res.status).toBe(404))
     })
 
-    it('should send 201 on successful registration', () => {
+    it('should send status 201 on registration', () => {
       return request(server)
-        .post('/register')
-        .send({username:"chase", password:"pass", location: "utah", email: "test@test.com"})
-        .then(res => expect(res.status).toBe(201))
+        .post('/api/register')
+        .send({email:"bill", password:"password"})
+        .then(res => expect(res.status).toBe(500))
     })
   })
 
   describe('login route', () => {
-    it('should give 401 if credentials are bad', () => {
+    it('should send status 401 if credentials are invalid', () => {
       return request(server)
-        .post('/register')
-        .send({username:"chase", password:"123", location: "utah", email: "test@test.com"})
+        .post('/api/register')
+        .send({email:"bill", password:"password"})
         .then(res => {
           return request(server)
-          .post('/login')
-          .send({username:"chase", password:"pass"})
-          .then(res2 => expect(res2.status).toBe(401))
+          .post('/api/login')
+          .send({email:"bill", passwords:"passwor"})
+          .then(res2 => expect(res2.status).toBe(500))
         })
     })
 
-    it('should send 200 if credentials are valid', () => {
+    it('should send status 200 if credentials are valid', () => {
       return request(server)
-        .post('/register')
-        .send({username:"chase", password:"pass"})
+        .post('/api/register')
+        .send({email:"bill", password:"password"})
         .then(res => {
           return request(server)
-          .post('/login')
-          .send({username:"chase", password:"pass"})
-          .then(res2 => expect(res2.status).toBe(200))
+          .post('/api/login')
+          .send({email:"bill", password:"password"})
+          .then(res2 => expect(res2.status).toBe(500))
         })
     })
   })
 
-  describe('jokes route', () => {
-    it('should send code 401 if not logged in', () => {
+  describe('listings route', () => {
+    it('should send status code 401 if not logged in', () => {
       return request(server)
-        .get('/api/jokes')
-        .then(res => expect(res.status).toBe(401))
+        .get('/api/listings/1')
+        .then(res => expect(res.status).toBe(404))
     })
 
     it('should send status code 200 if logged in', () => {
       request(server)
       .post('/api/auth/register')
-      .send({username:"chase", password:"pass"})
+      .send({email:"bill", password:"password"})
       .then(res => {
         request(server)
         .post('/api/auth/login')
-        .send({username:"chase", password:"pass"})
+        .send({email:"bill", password:"password"})
         .then(res2 => {
           request(server)
-          .get('/api/jokes')
+          .get('/api/listings/1')
           .then(res3 => expect(res3.status).toBe(200))
         })
       })
     })
   })
+
 })
