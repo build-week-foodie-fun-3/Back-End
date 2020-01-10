@@ -60,7 +60,7 @@ describe('server.js', () => {
           .post('/api/login')
           .send({email:"bill", password:"password"})
           .then(res2 => expect(res2.status).toBe(500))
-        })
+        }) 
     })
   })
 
